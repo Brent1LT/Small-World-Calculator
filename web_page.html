@@ -7,5 +7,35 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
     </head>
     <h1 class="header">It's A Small World After All</h1>
-    
+    <img src="assets/images/SmallWorld.png" />
+    <body>
+        <form id='addCard'>
+            <label for="cardname">Card name:</label>
+            <input type="text" id="cardname" name="cardname">
+            <label for="ATK">ATK:</label>
+            <input type="text" id="ATK" name="ATK">
+            <label for="DEF">DEF:</label>
+            <input type="text" id="DEF" name="DEF">
+            <label for="Attribute">Attribute:</label>
+            <select id="Attribute" name="Attribute" >
+                <option value="LIGHT" >Light</option>
+                <option value="DARK" >Dark</option>
+                <option value="EARTH" >Earth</option>
+                <option value="FIRE" >Fire</option>
+                <option value="WIND" >Wind</option>
+                <option value="WATER" >Water</option>
+            </select>
+            <label for="Level">Level:</label>
+            <input type="number" id="Level" name="Level" min="1" max="12" value="1">
+            <button type="submit">Add Card to Main Deck</button>
+        </form>
+
+        <div>
+            <h2>Monsters in Main</h2>
+            <ul id="mainMonsters">
+                
+            </ul>
+        </div>
+        <script src="./algo.js"></script>
+    </body>
 </html>
