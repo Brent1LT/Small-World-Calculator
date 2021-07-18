@@ -11,7 +11,7 @@
     <body>
         <form id='addCard'>
             <label for="cardname">Card name:</label>
-            <input type="text" id="cardname" name="cardname">
+            <input type="text" id="cardnameInput" name="cardnameInput">
             <label for="ATK">ATK:</label>
             <input type="text" id="ATK" name="ATK">
             <label for="DEF">DEF:</label>
@@ -33,8 +33,11 @@
         <div>
             <h2>Monsters in Main</h2>
             <ul id="mainMonsters">
-                
             </ul>
+        </div>
+        <button id="runAlgo">Create Paths</button>
+        <div id="pathResults">
+
         </div>
         <script src="./algo.js"></script>
     </body>
