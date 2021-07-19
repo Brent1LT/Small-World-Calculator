@@ -1,85 +1,13 @@
-const MAIN_DECK = {
-    "Any Drytron": {
-        "ATK": 2000,
-        "DEF": 0,
-        "Attr": Attribute.LIGHT,
-        "Level": 1,
-        "Type": "Machine"
-    },
-    "Diviner": {
-        "ATK": 500,
-        "DEF": 300,
-        "Attr": Attribute.LIGHT,
-        "Level": 2,
-        "Type": "Fairy"
-    },
-    "Orange Light": {
-        "DEF": 500,
-        "ATK": 300,
-        "Attr": Attribute.LIGHT,
-        "Level": 2,
-        "Type": "Fairy"
-    },
-    "Ultimateness": {
-        "ATK": 2000,
-        "DEF": 3000,
-        "Attr": Attribute.LIGHT,
-        "Level": 12,
-        "Type": "Fairy"
-    },
-    "Perfection": {
-        "ATK": 1800,
-        "DEF": 2800,
-        "Attr": Attribute.LIGHT,
-        "Level": 6,
-        "Type": "Fairy"
-    },
-    "Benten": {
-        "ATK": 1600,
-        "DEF": 1500,
-        "Attr": Attribute.LIGHT,
-        "Level": 6,
-        "Type": "Fairy"
-    },
-    "Natasha": {
-        "ATK": 1000,
-        "DEF": 1000,
-        "Attr": Attribute.LIGHT,
-        "Level": 5,
-        "Type": "Fairy"
-    },
-    "Eva": {
-        "ATK": 500,
-        "DEF": 200,
-        "Attr": Attribute.LIGHT,
-        "Level": 1,
-        "Type": "Fairy"
-    },
-    "Belle": {
-        "ATK": 0,
-        "DEF": 1800,
-        "Attr": Attribute.EARTH,
-        "Level": 3,
-        "Type": "Zombie"
-    },
-    "Ash": {
-        "ATK": 0,
-        "DEF": 1800,
-        "Attr": Attribute.FIRE,
-        "Level": 3,
-        "Type": "Zombie"
-    },
-    "Veiler": {
-        "ATK": 0,
-        "DEF": 0,
-        "Attr": Attribute.LIGHT,
-        "Level": 1,
-        "Type": "Spellcaster"
-    },
-};
+const COLORS = [
+    "red",
+    "green",
+    "blue",
+    "orange",
+    "purple",
+    "teal",
+];
 
 const tagBody = '(?:[^"\'>]|"[^"]*"|\'[^\']*\')*';
-
 const tagOrComment = new RegExp(
     '<(?:'
     // Comment body.
@@ -93,8 +21,7 @@ const tagOrComment = new RegExp(
     + ')>',
     'gi');
 
-// const mainDeck = {};
-const mainDeck = MAIN_DECK;
+const mainDeck = {};
 const form = document.getElementById('addCard');
 const algoButton = document.getElementById('runAlgo');
 
@@ -105,11 +32,13 @@ form.addEventListener('submit', (e) => {
     const DEF = form.elements.DEF.value;
     const Attribute = form.elements.Attribute.value;
     const Level = form.elements.Level.value;
-    addCardToMainDeck(cardName, ATK, DEF, Attribute, Level);
+    const Type = form.elements.Type.value;
+    addCardToMainDeck(cardName, ATK, DEF, Attribute, Level, Type);
     resetInputFields(
         form.elements.cardnameInput, 
         form.elements.ATK, 
-        form.elements.DEF
+        form.elements.DEF,
+        form.elements.Type
         );
 });
 
@@ -118,8 +47,8 @@ algoButton.addEventListener('click', (e) => {
     runAlgo(mainDeck);
 });
 
-function addCardToMainDeck(cardName, ATK, DEF, Attribute, Level) {
-    if (!cardName || mainDeck[cardName]) {
+function addCardToMainDeck(cardName, ATK, DEF, Attribute, Level, Type) {
+    if (!cardName || mainDeck[cardName] || !Type) {
         return;
     }else if (!ATK) {
         ATK = 0;
@@ -131,14 +60,15 @@ function addCardToMainDeck(cardName, ATK, DEF, Attribute, Level) {
         "ATK": ATK,
         "DEF": DEF,
         "Attribute": Attribute,
-        "Level": Level
+        "Level": Level,
+        "Type": Type
     };
     mainDeck[cardName] = cardObj;
-    const ul = document.getElementById('mainMonsters');
-    const li = document.createElement('li');
+    const div = document.getElementById('mainMonsters');
+    const li = document.createElement('h3');
     const cleanedName = removeTags(cardName);
     li.innerText = cleanedName;
-    ul.appendChild(li);
+    div.appendChild(li);
 }
 
 function runAlgo(mainDeck) {
@@ -198,17 +128,26 @@ function printPaths(paths) {
     removeOldPaths(pathClass);
     const pathArea = document.getElementById('pathResults');
     const startingMonsters = new Set();
+    let c = 0;
     for (const path of paths) {
+        let color;
         const {startingMonster, revealedMonster, match1, finalMonster, match2} = path;
         if (!startingMonsters.has(startingMonster)) {
+            c++;
+            if (c >= COLORS.length) {
+                c = 0;
+            }
+            color = COLORS[c];
             startingMonsters.add(startingMonster);
             const startingMonsterHTML = document.createElement('h2');
-            startingMonsterHTML.className = headerClass;
+            startingMonsterHTML.className = `${headerClass} ${color}`;
             startingMonsterHTML.innerText = startingMonster;
             pathArea.appendChild(startingMonsterHTML);
+        }else {
+            color = COLORS[c];
         }
         const pathHtml = document.createElement('div');
-        pathHtml.className = pathClass;
+        pathHtml.className = `${pathClass} ${color}`;
         const pathString = `${startingMonster} -> ${revealedMonster} via ${match1} -> ${finalMonster} via ${match2}`;
         pathHtml.innerText = pathString;
         pathArea.appendChild(pathHtml);
@@ -237,8 +176,9 @@ function removeTags(string) {
     return string.replace(/</g, '&lt;');
 }
 
-function resetInputFields(cardName, ATK, DEF) {
+function resetInputFields(cardName, ATK, DEF, Type) {
     cardName.value = '';
     ATK.value = '';
     DEF.value = '';
+    Type.value = '';
 }

@@ -7,15 +7,24 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
     </head>
     <h1 class="header">It's A Small World After All</h1>
-    <img src="assets/images/SmallWorld.png" />
+    <img class="small-world-card" src="assets/images/SmallWorld.png" />
+    <div class="page-info">
+        With the invention of the new "Small World" card, there are endless
+        amounts of combinations that you can have to search for a card. 
+        This page aims to help you find all possible routes for any card in 
+        you deck for optimal deck building.
+    </div>
     <body>
-        <form id='addCard'>
-            <label for="cardname">Card name:</label>
+        <form class="card-form" id='addCard'>
+            
+            <label for="cardnameInput">Card Name:</label>
             <input type="text" id="cardnameInput" name="cardnameInput">
             <label for="ATK">ATK:</label>
             <input type="text" id="ATK" name="ATK">
             <label for="DEF">DEF:</label>
             <input type="text" id="DEF" name="DEF">
+            <label for="Type">Type:</label>
+            <input type="text" id="Type" name="Type">
             <label for="Attribute">Attribute:</label>
             <select id="Attribute" name="Attribute" >
                 <option value="LIGHT" >Light</option>
@@ -27,16 +36,16 @@
             </select>
             <label for="Level">Level:</label>
             <input type="number" id="Level" name="Level" min="1" max="12" value="1">
-            <button type="submit">Add Card to Main Deck</button>
+            <button class="add-card-button" type="submit">Add Card to Main Deck</button>
         </form>
 
-        <div>
+        <div class="results-section">
             <h2>Monsters in Main</h2>
-            <ul id="mainMonsters">
-            </ul>
+            <div id="mainMonsters">
+            </div>
         </div>
-        <button id="runAlgo">Create Paths</button>
-        <div id="pathResults">
+        <button class="algo-button" id="runAlgo">Create Paths</button>
+        <div class="path-results" id="pathResults">
 
         </div>
         <script src="./algo.js"></script>

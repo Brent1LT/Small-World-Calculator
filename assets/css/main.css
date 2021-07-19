@@ -1,0 +1,98 @@
+body {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+}
+
+.header {
+  text-align: center;
+}
+.small-world-card {
+  object-fit: contain;
+  max-width: 300px;
+  height: auto;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.page-info {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: larger;
+}
+
+.card-form {
+  margin: auto;
+}
+
+label {
+  font-size: large;
+}
+
+label, input, select {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.add-card-button {
+  margin-top: 20px;
+  color: white;
+  background-color: #03a9f4;
+  height: 50px;
+  max-width: 200px;
+  border: none;
+  border-radius: 15px;
+  font-family: monospace;
+  font-size: large;
+}
+
+.results-section {
+  margin: auto;
+  text-align: center;
+}
+
+.algo-button {
+  max-width: 200px;
+  margin: auto;
+  height: 50px;
+  color: aliceblue;
+  background-color: #58c75c;
+  font-size: larger;
+  font-family: monospace;
+  border: none;
+  border-radius: 15px;
+  font-weight: bold;
+}
+
+.path-results {
+  margin: auto;
+}
+
+.path-header, .path-item {
+  text-align: center;
+}
+
+.red {
+  color: #b90606;
+}
+
+.green {
+  color: #4caf50;
+}
+
+.blue {
+  color: #03a9f4;
+}
+
+.orange {
+  color: #fb450c;
+}
+
+.purple {
+  color: #c92ce4;
+}
+
+.teal {
+  color: #4cca9c;
+}
